@@ -1,0 +1,22 @@
+<div class="banner">
+  Conoce Nexus Pass GRATIS hoy &nbsp;<a href="orden_pago.php">Únete ahora</a>
+</div>
+
+<nav id="navbar" class="d-flex align-items-center justify-content-between p-3">
+  <div class="nav__logo">Nexus<span>.</span>Pass</div>
+  <ul class="nav__links d-flex gap-4 list-unstyled mb-0" id="navLinks">
+    <li><a href="index.php#plans">Membresías</a></li>
+    <li><a href="index.php#how">Cómo funciona</a></li>
+    <li><a href="productos_visitante_muestra.php">Catálogo NFC</a></li>
+  </ul>
+  
+  <div class="nav-actions">
+    <?php if(isset($_SESSION['usuario'])): ?>
+      <a href="carro_ver.php" class="btn btn-outline-light me-2"><i class="bi bi-cart"></i> Carrito</a>
+      <a href="logout.php" class="btn btn-danger">Salir</a>
+    <?php else: ?>
+      <a href="login.php" class="btn btn-outline-light me-2">Iniciar Sesión</a>
+      <a href="index.php#plans" class="nav__cta btn btn-nexus">Únete</a>
+    <?php endif; ?>
+  </div>
+</nav>
