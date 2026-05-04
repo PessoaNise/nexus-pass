@@ -1,22 +1,68 @@
-<div class="banner">
-  Conoce Nexus Pass GRATIS hoy &nbsp;<a href="orden_pago.php">Únete ahora</a>
-</div>
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-<nav id="navbar" class="d-flex align-items-center justify-content-between p-3">
-  <div class="nav__logo">Nexus<span>.</span>Pass</div>
-  <ul class="nav__links d-flex gap-4 list-unstyled mb-0" id="navLinks">
-    <li><a href="index.php#plans">Membresías</a></li>
-    <li><a href="index.php#how">Cómo funciona</a></li>
-    <li><a href="productos_visitante_muestra.php">Catálogo NFC</a></li>
-  </ul>
-  
-  <div class="nav-actions">
-    <?php if(isset($_SESSION['usuario'])): ?>
-      <a href="carro_ver.php" class="btn btn-outline-light me-2"><i class="bi bi-cart"></i> Carrito</a>
-      <a href="logout.php" class="btn btn-danger">Salir</a>
-    <?php else: ?>
-      <a href="login.php" class="btn btn-outline-light me-2">Iniciar Sesión</a>
-      <a href="index.php#plans" class="nav__cta btn btn-nexus">Únete</a>
-    <?php endif; ?>
+    <a href="index.php" class="logo d-flex align-items-center">
+      <h1 class="sitename">Nexus.Pass</h1>
+    </a>
+
+    <!-- Barra de Búsqueda Integrada -->
+    <form action="catalogo.php" method="GET" class="d-none d-md-flex ms-4 me-auto align-items-center" style="box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 50px;">
+        <select name="categoria" class="form-select form-select-sm" style="border-radius: 50px 0 0 50px; background-color: rgba(255,255,255,0.05); color: var(--default-color); border: 1px solid rgba(255,255,255,0.1); width: 140px; font-size: 13px; cursor: pointer;">
+            <option style="color: black;" value="">Todas</option>
+            <?php
+            include_once '../resources/db/CategoriaDB.php';
+            $categoriasNav = CategoriaDB::getCategorias();
+            foreach ($categoriasNav as $cat): ?>
+                <option style="color: black;" value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nombre']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <div class="input-group">
+            <input type="text" name="b" class="form-control form-control-sm border-0 bg-transparent" placeholder="Buscar productos..." aria-label="Buscar" style="height: 38px; color: var(--default-color);">
+            <button class="btn btn-sm text-secondary border-0" type="submit" style="background-color: transparent;"><i class="bi bi-search"></i></button>
+        </div>
+    </form>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="index.php#hero" class="active">Inicio</a></li>
+        <li><a href="index.php#about">Sobre Nexus</a></li>
+        <li><a href="catalogo.php">Catálogo NFC</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+
+    <div class="header-actions ms-auto ms-lg-3 d-flex align-items-center gap-3">
+      <?php
+      if (!class_exists('Cart')) {
+          include_once __DIR__ . '/../db/CarroDB.php';
+      }
+      if (!isset($cart)) {
+          $cart = new Cart;
+      }
+      $cartCount = $cart->total_items();
+      ?>
+      <?php if(isset($_SESSION['usuario'])): ?>
+      <span class="d-none d-lg-block text-light fw-bold" style="font-size: 14px;">Hola,
+        <span style="color: var(--accent-color);"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+      </span>
+      <a href="cliente_ver_pedidos.php" class="btn btn-outline-light btn-sm position-relative me-2" style="border-radius: 50px; border-color: rgba(255,255,255,0.2);">
+          <i class="bi bi-box-seam me-1"></i> Mis Beneficios
+      </a>
+      <a href="carro_ver.php" class="btn btn-outline-light btn-sm position-relative me-2" style="border-radius: 50px;">
+          <i class="bi bi-cart"></i> Carrito
+          <?php if($cartCount > 0): ?>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+              <?php echo $cartCount; ?>
+          </span>
+          <?php endif; ?>
+      </a>
+      <a href="logout.php" class="btn btn-danger btn-sm" style="border-radius: 50px;"><i class="bi bi-box-arrow-right"></i> Salir</a>
+      <?php else: ?>
+      <a href="login.php" class="btn-getstarted btn-sm"
+        style="background: transparent; color: var(--heading-color); border: 2px solid var(--accent-color);">Iniciar Sesión</a>
+      <a href="usuario_registro.php" class="btn-getstarted btn-sm">Únete</a>
+      <?php endif; ?>
+    </div>
+
   </div>
-</nav>
+</header>

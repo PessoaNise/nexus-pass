@@ -1,8 +1,9 @@
 <?php
 
-require __DIR__ . '/../../vendor/autoload.php';
+$rootPath = dirname(__DIR__, 2); 
+require_once $rootPath . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv = Dotenv\Dotenv::createImmutable($rootPath);
 $dotenv->load();
 
 class Conexion {
@@ -12,7 +13,7 @@ class Conexion {
     private $usuario = 'root';
     //~ private $password = $_ENV['DB_PASSWORD'];; // initialization must be a constant value.
     private $password;
-    private $nombreBaseDatos = 'souvenirs';
+    private $nombreBaseDatos = 'nexus';
 
     /*
     Get an instance of the Database

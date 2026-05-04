@@ -1,60 +1,57 @@
-<body>
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-<header>
-    <div class="container-sm">
-        <div class="row py-3 border-bottom">
+    <a href="index.php" class="logo d-flex align-items-center">
+      <h1 class="sitename">Nexus.Pass</h1>
+    </a>
 
-            <!--logo-->
-            <div class="col-2 d-flex justify-content-start">
-                <a href="index.php">
-                    <img src="assets/img/logo100x86.png" alt="logo" class="img-fluid">
-                </a>
-            </div>
-
-            <!--barra búsqueda-->
-            <div class="col-10 col-md-8 d-flex justify-content-center align-items-center">
-                <div class="input-group">
-                    <div class="d-none d-md-block">
-                        <select class="form-select border-0" aria-label="Todas las categorías">
-                            <option selected>Todas las categorías</option>
-                            <option>Groceries</option>
-                            <option>Drinks</option>
-                            <option>Chocolates</option>
-                        </select>
-                    </div>
-                    <input type="text" class="form-control border-1 bg-transparent" placeholder="Busca más de 10000 productos">
-                    <div class="d-flex align-items-center px-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-2 my-3 d-flex justify-content-center justify-content-md-end align-items-center">
-                <ul class="d-flex justify-content-end list-unstyled m-0">
-                    <li>
-                        <!--usuario-->
-                        <a href="#" class="p-2 mx-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                 class="bi bi-person-circle text-success" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd"
-                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <!--carrito-->
-                        <a href="#" class="p-2 mx-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Barra de Búsqueda Integrada -->
+    <form action="catalogo.php" method="GET" class="d-none d-md-flex ms-4 me-auto align-items-center" style="box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 50px;">
+        <select name="categoria" class="form-select form-select-sm" style="border-radius: 50px 0 0 50px; background-color: rgba(255,255,255,0.05); color: var(--default-color); border: 1px solid rgba(255,255,255,0.1); width: 140px; font-size: 13px; cursor: pointer;">
+            <option style="color: black;" value="">Todas</option>
+            <?php
+            include_once '../resources/db/CategoriaDB.php';
+            $categoriasNav = CategoriaDB::getCategorias();
+            foreach ($categoriasNav as $cat): ?>
+                <option style="color: black;" value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nombre']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <div class="input-group">
+            <input type="text" name="b" class="form-control form-control-sm border-0 bg-transparent" placeholder="Buscar productos..." aria-label="Buscar" style="height: 38px; color: var(--default-color);">
+            <button class="btn btn-sm text-secondary border-0" type="submit" style="background-color: transparent;"><i class="bi bi-search"></i></button>
         </div>
+    </form>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="index.php#hero" class="active">Inicio</a></li>
+        <li><a href="index.php#about">Sobre Nexus</a></li>
+        <li><a href="catalogo.php">Catálogo NFC</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+
+    <div class="header-actions ms-auto ms-lg-3 d-flex align-items-center gap-3">
+      <?php
+      if (!class_exists('Cart')) {
+          include_once __DIR__ . '/../db/CarroDB.php';
+      }
+      if (!isset($cart)) {
+          $cart = new Cart;
+      }
+      $cartCount = $cart->total_items();
+      ?>
+      <a href="carro_ver.php" class="btn btn-outline-light btn-sm position-relative" style="border-radius: 50px;">
+          <i class="bi bi-cart"></i>
+          <?php if($cartCount > 0): ?>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+              <?php echo $cartCount; ?>
+          </span>
+          <?php endif; ?>
+      </a>
+      <a class="btn-getstarted btn-sm" href="login.php" style="background: transparent; color: var(--heading-color); border: 2px solid var(--accent-color);">Iniciar Sesión</a>
+      <a class="btn-getstarted btn-sm" href="usuario_registro.php">Únete</a>
     </div>
+
+  </div>
 </header>

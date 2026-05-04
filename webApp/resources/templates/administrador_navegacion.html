@@ -1,0 +1,28 @@
+<header id="header" class="header d-flex align-items-center fixed-top" style="background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+    <a href="administrador_vista.php" class="logo d-flex align-items-center me-auto">
+      <h1 class="sitename" style="color: var(--accent-color);">Nexus.Admin</h1>
+    </a>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="administrador_vista.php">Dashboard</a></li>
+        <li class="dropdown"><a href="#"><span>Catálogo</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            <li><a href="productos_ver.php">Ver Inventario</a></li>
+            <li><a href="producto_registrar.php">Añadir Producto</a></li>
+          </ul>
+        </li>
+        <li><a href="pedidos_ver.php">Pedidos</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+
+    <div class="header-actions ms-auto d-flex align-items-center gap-3">
+      <span class="d-none d-md-block text-light fw-bold">Admin: <?php echo htmlspecialchars($_SESSION['usuario'] ?? 'Admin'); ?></span>
+      <a href="logout.php" class="btn btn-sm" style="background-color: #dc3545; color: white; border-radius: 50px; padding: 5px 15px;"><i class="bi bi-box-arrow-right"></i> Salir</a>
+    </div>
+
+  </div>
+</header>

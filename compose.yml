@@ -33,11 +33,11 @@ services:
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
       # - MYSQL_ROOT_PASSWORD=password
       - MYSQL_TCP_PORT=3306
-      - MYSQL_DATABASE=souvenirs
+      - MYSQL_DATABASE=nexus
       
   composer:
     image: composer:2.8
-    command: ["composer", "install"]
+    command: ["composer", "update", "install"]
     volumes:
       - ./webApp/:/var/www/html
     depends_on:
